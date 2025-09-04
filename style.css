@@ -1,0 +1,202 @@
+/* Import Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* --- Root Variables & Theme --- */
+:root {
+  --font-family: 'Poppins', sans-serif;
+  /* Light Theme */
+  --bg-color: #f4f7f9;
+  --card-bg-color: #ffffff;
+  --text-color: #1e293b;
+  --text-muted-color: #64748b;
+  --border-color: #e2e8f0;
+  --accent-color: #4f46e5;
+  --accent-hover-color: #4338ca;
+  --danger-color: #ef4444;
+  /* Sizing & Effects */
+  --radius: 12px;
+  --transition: all 0.2s ease-in-out;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Dark Mode Theme */
+body.dark-mode {
+  --bg-color: #111827;
+  --card-bg-color: #1f2937;
+  --text-color: #e5e7eb;
+  --text-muted-color: #9ca3af;
+  --border-color: #374151;
+}
+
+/* --- Global Styles --- */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  margin: 0;
+  padding: 24px;
+  transition: var(--transition);
+}
+
+.container { max-width: 1400px; margin: auto; }
+
+/* --- App Header --- */
+.app-header {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.app-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+.app-header .caption {
+  font-size: 1rem;
+  color: var(--text-muted-color);
+  margin: 0;
+}
+
+/* --- Main Layout --- */
+.app-dashboard {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.sidebar, .main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* --- Card Styles --- */
+.card {
+  background-color: var(--card-bg-color);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+}
+.card h2, .card h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+/* --- Form Styles --- */
+#expense-form { display: flex; flex-direction: column; gap: 1.25rem; }
+.form-control { display: flex; flex-direction: column; gap: 0.5rem; }
+label { font-size: 0.9rem; font-weight: 500; color: var(--text-muted-color); }
+input, select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-size: 0.95rem;
+  transition: var(--transition);
+  font-family: var(--font-family);
+}
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+/* --- Date Input with Placeholder --- */
+.date-input-container { position: relative; }
+.date-placeholder {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  color: var(--text-muted-color);
+  pointer-events: none;
+  transition: var(--transition);
+  font-size: 0.95rem;
+}
+
+/* START: FIX FOR OVERLAPPING PLACEHOLDER */
+/* Hide the browser's default date text when our placeholder is visible */
+.date-input-container:not(.has-value) input[type="date"] {
+    color: transparent;
+}
+/* END: FIX FOR OVERLAPPING PLACEHOLDER */
+
+.date-input-container.has-value .date-placeholder { opacity: 0; }
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0.5;
+  cursor: pointer;
+}
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+
+
+/* --- Button Styles --- */
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+#submit-btn { background: var(--accent-color); color: white; }
+#submit-btn:hover { background: var(--accent-hover-color); }
+.btn-cancel { background-color: transparent; color: var(--text-muted-color); border: 1px solid var(--border-color); }
+.btn-cancel:hover { background-color: var(--bg-color); }
+#theme-toggle {
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted-color);
+  font-size: 1.25rem;
+  padding: 0.5rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+#theme-toggle:hover { color: var(--accent-color); background-color: var(--bg-color); }
+
+/* --- Summary & Filters --- */
+.filters { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.5rem; }
+.filter-controls { display: flex; gap: 1rem; }
+.summary-group h3 { font-size: 1rem; color: var(--text-muted-color); margin-bottom: 0.5rem; }
+#total-expenses { font-size: 2rem; font-weight: 700; color: var(--accent-color); }
+
+/* Category Summary */
+#category-summary {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+#category-summary p {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 0.5rem 0;
+}
+
+/* --- Table --- */
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--border-color); }
+th { color: var(--text-muted-color); text-transform: uppercase; font-size: 0.75rem; font-weight: 600; }
+tbody tr:hover { background-color: var(--bg-color); }
+.action-btn { padding: 4px 8px; font-size: 0.8rem; }
+.delete-btn { background-color: transparent; color: var(--danger-color); }
+.delete-btn:hover { background-color: var(--danger-color); color: white; }
+
